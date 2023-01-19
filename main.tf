@@ -53,6 +53,12 @@ resource "aws_iam_policy" "policy" {
     "Condition": {"StringLike": {"autoscaling:ResourceTag/verta.ai/managed": "true"}}
   },
   {
+    "Sid": "AutoscalingArn",
+    "Effect": "Allow",
+    "Action": ["autoscaling:*"],
+    "Resource": "arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*"
+  },
+  {
     "Sid": "EC2all",
     "Effect": "Allow",
     "Action": [
