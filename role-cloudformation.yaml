@@ -1,0 +1,176 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template to Verta's IAM Role
+
+Resources:
+  VertaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: arn:aws:iam::493416687123:root
+            Action:
+              - 'sts:AssumeRole'
+      Description: Role to provide Verta access
+      Policies:
+        - PolicyName: EmbeddedInlinePolicy
+          PolicyDocument:
+            Statement:
+            - Action:
+              - acm:*
+              Effect: Allow
+              Resource: '*'
+              Sid: ACMall
+            - Action:
+              - autoscaling:Create*
+              - autoscaling:Describe*
+              - autoscaling:AddTags
+              Effect: Allow
+              Resource: '*'
+              Sid: AutoscalingAll
+            - Action:
+              - autoscaling:*
+              Condition:
+                StringLike:
+                  autoscaling:ResourceTag/verta.ai/managed: 'true'
+              Effect: Allow
+              Resource: '*'
+              Sid: AutoscalingTag
+            - Action:
+              - autoscaling:*
+              Effect: Allow
+              Resource: arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*
+              Sid: AutoscalingArn
+            - Action:
+              - ec2:AllocateAddress
+              - ec2:Create*
+              - ec2:Describe*
+              - ec2:ImportKeyPair
+              - ec2:RunInstances
+              Effect: Allow
+              Resource: '*'
+              Sid: EC2all
+            - Action:
+              - ec2:*
+              Condition:
+                StringLike:
+                  ec2:ResourceTag/verta.ai/managed: 'true'
+              Effect: Allow
+              Resource: '*'
+              Sid: EC2tag
+            - Action:
+              - ec2:*
+              Condition:
+                StringLike:
+                  ec2:ResourceTag/kubernetes.io/cluster/verta-mgt-CLUSTER_NAME: owned
+              Effect: Allow
+              Resource: '*'
+              Sid: EC2tag2
+            - Action:
+              - sts:DecodeAuthorizationMessage
+              Effect: Allow
+              Resource: '*'
+              Sid: Decode
+            - Action:
+              - ec2:*
+              Effect: Allow
+              Resource: arn:aws:ec2:*:*:*/verta-mgt-*
+              Sid: EC2arn
+            - Action: ec2:DeleteSecurityGroup
+              Condition:
+                StringEquals:
+                  ec2:ResourceTag/AWSServiceName: GlobalAccelerator
+              Effect: Allow
+              Resource: '*'
+              Sid: EC2GA
+            - Action:
+              - ecr:GetRegistryScanningConfiguration
+              - ecr:PutRegistryScanningConfiguration
+              Effect: Allow
+              Resource: '*'
+              Sid: ECRAll
+            - Action:
+              - ecr:*
+              Effect: Allow
+              Resource: arn:aws:ecr:*:*:repository/verta-mgt-*
+              Sid: ECRarn
+            - Action:
+              - eks:*
+              Effect: Allow
+              Resource: arn:aws:eks:*:*:*/verta-mgt-*
+              Sid: EKSall
+            - Action:
+              - globalaccelerator:*
+              Effect: Allow
+              Resource: '*'
+              Sid: GA
+            - Action:
+              - iam:*
+              Effect: Allow
+              Resource:
+              - arn:aws:iam::*:policy/verta-mgt-*
+              - arn:aws:iam::*:role/verta-mgt-*
+              - arn:aws:iam::*:instance-profile/verta-mgt-*
+              Sid: IAMarn
+            - Action:
+              - iam:CreateServiceLinkedRole
+              - iam:DeleteServiceLinkedRole
+              - iam:GetServiceLinkedRoleDeletionStatus
+              Effect: Allow
+              Resource: arn:aws:iam::*:role/aws-service-role/*.amazonaws.com/*
+              Sid: IAMlinked
+            - Action:
+              - iam:CreateOpenIDConnectProvider
+              - iam:GetOpenIDConnectProvider
+              - iam:DeleteOpenIDConnectProvider
+              Effect: Allow
+              Resource:
+              - arn:aws:iam::*:oidc-provider/oidc.eks.*.amazonaws.com
+              - arn:aws:iam::*:oidc-provider/oidc.eks.*.amazonaws.com/id/*
+              Sid: IAMoidc
+            - Action:
+              - iam:GetRole
+              - iam:PassRole
+              Effect: Allow
+              Resource: '*'
+              Sid: IAMpass
+            - Action:
+              - iam:*
+              Condition:
+                StringLike:
+                  iam:ResourceTag/verta.ai/managed: 'true'
+              Effect: Allow
+              Resource: '*'
+              Sid: IAMtag
+            - Action:
+              - elasticloadbalancing:Describe*
+              - elasticloadbalancing:Create*
+              Effect: Allow
+              Resource: '*'
+              Sid: LoadbalancingAll
+            - Action:
+              - elasticloadbalancing:*
+              Effect: Allow
+              Resource: arn:aws:elasticloadbalancing:*:*:*/verta-mgt-*
+              Sid: LoadbalancingARN
+            - Action:
+              - rds:Describe*
+              Effect: Allow
+              Resource: arn:aws:rds:*:*:*:*
+              Sid: RDSall
+            - Action:
+              - '*'
+              Effect: Allow
+              Resource: arn:aws:rds:*:*:*:verta-mgt-*
+              Sid: RDSarn
+            - Action:
+              - s3:*
+              Effect: Allow
+              Resource:
+              - arn:aws:s3:::verta-mgt-*
+              - arn:aws:s3:::verta-mgt-*/*
+              Sid: S3arn
+            Version: '2012-10-17'
+      RoleName: VertaOps
