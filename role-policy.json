@@ -13,70 +13,17 @@
       "Sid": "AutoscalingAll",
       "Effect": "Allow",
       "Action": [
-        "autoscaling:Create*",
-        "autoscaling:Describe*",
-        "autoscaling:AddTags"
+        "autoscaling:*"
       ],
       "Resource": "*"
-    },
-    {
-      "Sid": "AutoscalingTag",
-      "Effect": "Allow",
-      "Action": [
-        "autoscaling:*"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringLike": {
-          "autoscaling:ResourceTag/verta.ai/managed": "true"
-        }
-      }
-    },
-    {
-      "Sid": "AutoscalingArn",
-      "Effect": "Allow",
-      "Action": [
-        "autoscaling:*"
-      ],
-      "Resource": "arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*"
     },
     {
       "Sid": "EC2all",
       "Effect": "Allow",
       "Action": [
-        "ec2:AllocateAddress",
-        "ec2:Create*",
-        "ec2:Describe*",
-        "ec2:ImportKeyPair",
-        "ec2:RunInstances"
+        "ec2:*"
       ],
       "Resource": "*"
-    },
-    {
-      "Sid": "EC2tag",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:*"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringLike": {
-          "ec2:ResourceTag/verta.ai/managed": "true"
-        }
-      }
-    },
-    {
-      "Sid": "EC2tag2",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:*"
-      ],
-      "Resource": "*",
-      "Condition": {
-        "StringLike": {
-          "ec2:ResourceTag/kubernetes.io/cluster/verta-mgt-${var.cluster_name}": "owned"
-        }
-      }
     },
     {
       "Sid": "Decode",
@@ -87,40 +34,12 @@
       "Resource": "*"
     },
     {
-      "Sid": "EC2arn",
-      "Effect": "Allow",
-      "Action": [
-        "ec2:*"
-      ],
-      "Resource": "arn:aws:ec2:*:*:*/verta-mgt-*"
-    },
-    {
-      "Sid": "EC2GA",
-      "Effect": "Allow",
-      "Action": "ec2:DeleteSecurityGroup",
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "ec2:ResourceTag/AWSServiceName": "GlobalAccelerator"
-        }
-      }
-    },
-    {
       "Sid": "ECRAll",
-      "Effect": "Allow",
-      "Action": [
-        "ecr:GetRegistryScanningConfiguration",
-        "ecr:PutRegistryScanningConfiguration"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "ECRarn",
       "Effect": "Allow",
       "Action": [
         "ecr:*"
       ],
-      "Resource": "arn:aws:ecr:*:*:repository/verta-mgt-*"
+      "Resource": "*"
     },
     {
       "Sid": "EKSall",
@@ -128,7 +47,7 @@
       "Action": [
         "eks:*"
       ],
-      "Resource": "arn:aws:eks:*:*:*/verta-mgt-*"
+      "Resource": "*"
     },
     {
       "Sid": "GA",
@@ -145,9 +64,7 @@
         "iam:*"
       ],
       "Resource": [
-        "arn:aws:iam::*:policy/verta-mgt-*",
-        "arn:aws:iam::*:role/verta-mgt-*",
-        "arn:aws:iam::*:instance-profile/verta-mgt-*"
+        "arn:aws:iam::*:*/verta-mgt-*"
       ]
     },
     {
@@ -199,44 +116,27 @@
       "Sid": "LoadbalancingAll",
       "Effect": "Allow",
       "Action": [
-        "elasticloadbalancing:Describe*",
-        "elasticloadbalancing:Create*"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "LoadbalancingARN",
-      "Effect": "Allow",
-      "Action": [
         "elasticloadbalancing:*"
       ],
-      "Resource": "arn:aws:elasticloadbalancing:*:*:*/verta-mgt-*"
+      "Resource": "*"
     },
     {
       "Sid": "RDSall",
       "Effect": "Allow",
       "Action": [
-        "rds:Describe*"
+        "rds:*"
       ],
-      "Resource": "arn:aws:rds:*:*:*:*"
+      "Resource": "*"
     },
     {
-      "Sid": "RDSarn",
-      "Effect": "Allow",
-      "Action": [
-        "*"
-      ],
-      "Resource": "arn:aws:rds:*:*:*:verta-mgt-*"
-    },
-    {
-      "Sid": "S3arn",
+      "Sid": "S3all",
       "Effect": "Allow",
       "Action": [
         "s3:*"
       ],
       "Resource": [
-        "arn:aws:s3:::verta-mgt-*",
-        "arn:aws:s3:::verta-mgt-*/*"
+        "arn:aws:s3:::*",
+        "arn:aws:s3:::*/*"
       ]
     }
   ]
