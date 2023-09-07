@@ -64,7 +64,9 @@
         "iam:*"
       ],
       "Resource": [
-        "arn:aws:iam::*:*/verta-mgt-*"
+        "arn:aws:iam::*:policy/verta-mgt-*",
+        "arn:aws:iam::*:role/verta-mgt-*",
+        "arn:aws:iam::*:instance-profile/verta-mgt-*"
       ]
     },
     {
