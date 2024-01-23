@@ -20,6 +20,7 @@
       "Resource": "*"
     },
     {
+<<<<<<< Updated upstream
       "Sid": "AutoscalingTag",
       "Effect": "Allow",
       "Action": [
@@ -39,6 +40,14 @@
         "autoscaling:*"
       ],
       "Resource": "arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*"
+=======
+      "Sid": "CloudwatchAll",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:*"
+      ],
+      "Resource": "*"
+>>>>>>> Stashed changes
     },
     {
       "Sid": "EC2all",
