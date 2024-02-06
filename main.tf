@@ -39,32 +39,17 @@ resource "aws_iam_policy" "policy" {
       "Sid": "AutoscalingAll",
       "Effect": "Allow",
       "Action": [
-        "autoscaling:Create*",
-        "autoscaling:Describe*",
-        "autoscaling:AddTags"
+        "autoscaling:*"
       ],
       "Resource": "*"
     },
     {
-      "Sid": "AutoscalingTag",
+      "Sid": "CloudwatchAll",
       "Effect": "Allow",
       "Action": [
-        "autoscaling:*"
+        "cloudwatch:*"
       ],
-      "Resource": "*",
-      "Condition": {
-        "StringLike": {
-          "autoscaling:ResourceTag/verta.ai/managed": "true"
-        }
-      }
-    },
-    {
-      "Sid": "AutoscalingArn",
-      "Effect": "Allow",
-      "Action": [
-        "autoscaling:*"
-      ],
-      "Resource": "arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*"
+      "Resource": "*"
     },
     {
       "Sid": "EC2all",
