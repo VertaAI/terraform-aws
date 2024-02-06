@@ -24,25 +24,15 @@ Resources:
               Resource: '*'
               Sid: ACMall
             - Action:
-              - autoscaling:Create*
-              - autoscaling:Describe*
-              - autoscaling:AddTags
+              - autoscaling:*
               Effect: Allow
               Resource: '*'
               Sid: AutoscalingAll
             - Action:
-              - autoscaling:*
-              Condition:
-                StringLike:
-                  autoscaling:ResourceTag/verta.ai/managed: 'true'
+              - cloudwatch:*
               Effect: Allow
               Resource: '*'
-              Sid: AutoscalingTag
-            - Action:
-              - autoscaling:*
-              Effect: Allow
-              Resource: arn:aws:autoscaling:*:*:*:*:*/eks-verta-mgt-*
-              Sid: AutoscalingArn
+              Sid: CloudwatchAll
             - Action:
               - ec2:AllocateAddress
               - ec2:Create*
