@@ -30,6 +30,7 @@ Resources:
               Sid: AutoscalingAll
             - Action:
               - cloudwatch:*
+              - logs:*
               Effect: Allow
               Resource: '*'
               Sid: CloudwatchAll

@@ -47,7 +47,8 @@ resource "aws_iam_policy" "policy" {
       "Sid": "CloudwatchAll",
       "Effect": "Allow",
       "Action": [
-        "cloudwatch:*"
+        "cloudwatch:*",
+        "logs:*"
       ],
       "Resource": "*"
     },

@@ -21,7 +21,8 @@
       "Sid": "CloudwatchAll",
       "Effect": "Allow",
       "Action": [
-        "cloudwatch:*"
+        "cloudwatch:*",
+        "logs:*"
       ],
       "Resource": "*"
     },
