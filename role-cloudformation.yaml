@@ -47,7 +47,7 @@ Resources:
               - ec2:*
               Condition:
                 StringLike:
-                  ec2:ResourceTag/verta.ai/managed: 'true'
+                  ec2:ResourceTag/verta.ai/managed: true
               Effect: Allow
               Resource: '*'
               Sid: EC2tag
@@ -131,7 +131,7 @@ Resources:
               - iam:*
               Condition:
                 StringLike:
-                  iam:ResourceTag/verta.ai/managed: 'true'
+                  iam:ResourceTag/verta.ai/managed: true
               Effect: Allow
               Resource: '*'
               Sid: IAMtag
@@ -163,5 +163,5 @@ Resources:
               - arn:aws:s3:::verta-mgt-*
               - arn:aws:s3:::verta-mgt-*/*
               Sid: S3arn
-            Version: '2012-10-17'
+            Version: 2012-10-17
       RoleName: VertaOps
